@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='header.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='side-bar.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='contacts.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='reminders.css') }}">
+  {% if title %}
+    <title>{{ title }}</title>
+  {% else %}
+    <title>Brotherly</title>
+  {% endif %}
+</head>
+<body class="body">
+  <header class="header">
+    <div class="left-header">
+    
+      <a href="{{ url_for('home') }}"><div><p class="header-link">Home</p></div></a>
+      <div><p class="header-link">About Us</p></div>
+      <div><p class="header-link">Features</p></div>
+      <div><p class="header-link">Contact Us</p></div>
+    </div>
+    <div class="right-header">
+      {% if current_user.is_authenticated %}
+        <a href="{{ url_for('sign_out') }}"><button class="general-button">Sign Out</button></a>
+      {% else %}
+        <a href="{{ url_for('sign_in') }}"><button class="general-button">Sign In</button></a>
+        <a href="{{ url_for('register') }}"><button class="general-button">Register</button></a>
+      {% endif %}
+    </div>
+  </header>
+  {% if current_user.is_authenticated %}
+    <div class="side-bar">
+      <a href="{{ url_for('contacts') }}">
+        <div class="sidebar-icon">
+          <img class="home" src="{{ url_for('static', filename='images/contacts-icon.png') }}">
+          <p>Contacts</p>
+        </div>
+      </a>
+      <div class="sidebar-icon">
+        <img class="explore" src="{{ url_for('static', filename='images/contacts-icon.png') }}">
+        <p>Reminders</p>
+      </div>
+      <div class="sidebar-icon">
+        <img class="subscriptions" src="{{ url_for('static', filename='images/suggestion-icon.png') }}">
+        <p>Suggestions</p>
+      </div>
+      <div class="sidebar-icon">
+        <img class="originals" src="{{ url_for('static', filename='images/settings-icon.png') }}">
+        <p>Settings</p>
+      </div>
+      <div class="sidebar-icon">
+        <img class="youtube-music" src="{{ url_for('static', filename='images/logout-icon.png') }}">
+        <p>Logout</p>
+      </div>
+    </div>
+  {% endif %}
+  <div class="general-content">
+    {% block content %}    
+    {% endblock %}
+  </div>
+  <!--<footer class="foot">
+    <p> 2024 Brotherly</p>
+  </footer>-->
+</body>
+</html>
